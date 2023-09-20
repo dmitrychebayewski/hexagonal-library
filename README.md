@@ -21,7 +21,6 @@ Submit the following payload with Post HTTP request by
 ```
 
 {
-        "id": 1,
         "title": "Works For Organ And Piano Jan Pieterszoon Sweelinck",
         "isbn10": "0-486-24935-2",
         "description": "Werken voor orgel en clavicimbel",
