@@ -3,12 +3,12 @@ Java Spring Boot Application To Demonstrate The Power Of Ports And Adapters Arch
 
 ## Start Using The Code
 
-Assuming that you have your favourite Java 11, Maven and your favourite IDE installed, type:
+Assuming that you have Java 11 (or a later version), Maven and your favourite IDE installed, 
+go to the the project root directory and type a command:
 ```
 mvn clean install
 ``` 
-then go to **launcher**
-and launch LibraryApplication.java
+then  launch LibraryApplication.java from the **launcher** module.
 The application is served automatically after a while.
 ## Now check the list of books 
 
