@@ -30,9 +30,16 @@ Submit the following payload with Post HTTP request by
 
 ## Build A LibNet Broker
 
-The application (TinyLib) can manage a tiny library with core functions.
-At some moment you want to add a method to let your library order a book by ISBN.
-Given your library has yet a limited collection,  
-but there is a library network (LibNet), 
-and LibNet has a publically available API that provides partner libraries with books, 
-how would you extend your TinyLib to communicate with LibNet and order books there, if TinyLib doesn't have any?   
+De applicatie (TinyLib) kan een beperkte bibliotheek met kernfuncties beheren. 
+Op een gegeven moment wil je een feature toevoegen om je bibliotheek een boek op ISBN te laten bestellen. 
+Aangezien uw bibliotheek nog maar een beperkte collectie heeft, maar er is een bibliotheeknetwerk (LibNet), 
+en LibNet heeft een open API die partnerbibliotheken van boeken voorziet, 
+hoe zou je je TinyLib uitbreiden om met LibNet te communiceren en daar boeken te bestellen, 
+als je TinyLib een of meerdere boeken nog niet heeft?
+
+The application (TinyLib) can manage a limited library with core features. 
+At some point, you want to add a feature to let your library order a book by ISBN. 
+Since your library still has a limited collection, but there is a library network (LibNet), 
+and LibNet has an open API that provides partner libraries with books, 
+how would you extend your TinyLib to communicate with LibNet and order books there, 
+if your TinyLib doesn't have one or more books yet?
