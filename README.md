@@ -1,5 +1,5 @@
 # hexagonal-library
-Java Spring Boot Application To Demonstrate The POwer Of Ports And Adapters Architecture
+Java Spring Boot Application To Demonstrate The Power Of Ports And Adapters Architecture
 
 ## Start Using The Code
 
