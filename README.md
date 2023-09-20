@@ -35,4 +35,4 @@ At some moment you want to add a method to let your library order a book by ISBN
 Given your library has yet a limited collection,  
 but there is a library network (LibNet), 
 and LibNet has a publically available API that provides partner libraries with books, 
-how would you extend your TinyLib to communicate with LibNet and order books there, if TinyLib doesn't have it?   
+how would you extend your TinyLib to communicate with LibNet and order books there, if TinyLib doesn't have any?   
