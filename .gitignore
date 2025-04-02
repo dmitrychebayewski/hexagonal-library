@@ -30,3 +30,8 @@ README.md
 .idea/misc.xml
 .idea/vcs.xml
 .vscode/settings.json
+/application/target/
+/domain/target/
+/infrastructure/target/
+/launcher/target/
+/.idea/
