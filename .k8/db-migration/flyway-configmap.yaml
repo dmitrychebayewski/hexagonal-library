@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flyway-env
+  labels:
+    app: flyway
+data:
+  FLYWAY_URL: jdbc:postgresql://postgres:5432/postgres
+  FLYWAY_USER: postrges

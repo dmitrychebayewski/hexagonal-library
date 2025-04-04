@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hexagonal-service
+spec:
+  selector:
+    matchLabels:
+      app: hexagonal-service
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: hexagonal-service
+    spec:
+      containers:
+        - name: hexagonal-service
+          image: hexagonal-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
