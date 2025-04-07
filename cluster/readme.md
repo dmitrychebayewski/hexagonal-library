@@ -30,6 +30,7 @@ $minikube dashboard
 ```console
 $cd cluster
 $eval $(minikube docker-env)
+PS: & minikube -p minikube docker-env --shell powershell | Invoke-Expression
 $docker build -t hexagonal-service .
 ```
 
