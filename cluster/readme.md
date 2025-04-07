@@ -1,4 +1,4 @@
-### Working With Spring Boot Application with Flyway Migration in your Minikube Environment 
+### Working With Spring Boot Application With Flyway Migration In Your Minikube Environment 
 
 Why is Flyway migration with InitContainer interesting?
 
@@ -8,33 +8,46 @@ is one step forward towards zero-downtime deployment.
 InitContainer is a special container (we can consider it a co-container to a pod) 
 that run to completion during Pod initialization.
 
-Some ideas how for how to use init containers (await a service, pre-fetch data) make suggestion
-that we can prepare Flyway migration with an init container.
+Some ideas how for how to use init containers (await a service, pre-fetch data) make a suggestion
+that we can prepare Flyway migrations with an init container.
 
 For testing a deployment of a spring boot application we'll need a spring boot application,
 Docker and a local implementation of Kubernetes, for example, Minikube.
-Also, we'll need a few manual actions for setting up our environment variables, keeping the passwords.
+Also, we'll need a following actions to be completed manually:
+- Set up environment variables, keeping the passwords;
+- Make the initial database baseline
 
 ### Start Minikube
 
+```console
 $kubectl config use-context minikube
 $minikube start — vm-driver=virtualbox
 $minikube dashboard
+```
 
 ### Build the Spring Boot Application from a project root
+
+```console
 $cd cluster
 $eval $(minikube docker-env)
 $docker build -t hexagonal-service .
+```
 
 Eval command makes a local docker use minikube environment (to build an image directly to your cluster).
 
 ### Keeping the secret passwords in the kubernetes secrets
 
 Replace the stars in the example with your own passwords.
-
+```console
 $kubectl create secret generic flyway-secret --from-literal=FLYWAY_PASSWORD=********
 $kubectl create secret generic postgres-secret --from-literal=POSTGRES_PASSWORD=********
 $kubectl create secret generic hexagonal-secret --from-literal=SPRING_DATASOURCE_PASSWORD=********
+```
+### Making The Initial Baseline
+From the cluster directory:
+```console
+$ kubectl apply -f db-migration/util/db-baseline.yaml
+```
 
 
 ### Links
