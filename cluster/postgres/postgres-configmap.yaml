@@ -7,4 +7,3 @@ metadata:
 data:
   POSTGRES_DB: postgres
   POSTGRES_USER: postrges
-  POSTGRES_PASSWORD: postgres
