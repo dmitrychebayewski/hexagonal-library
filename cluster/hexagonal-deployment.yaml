@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hexagonal-service
+spec:
+  selector:
+    matchLabels:
+      app: hexagonal-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hexagonal-service
+    spec:
+      containers:
+        - name: hexagonal-service
+          image: hexagonal-service:latest
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: hexagonal-env
+            - secretRef:
+                name: hexagonal-secret
+          ports:
+            - containerPort: 8080
+      initContainers:
+        - name: db-migration
+          image: db-migration:latest
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: flyway-env
+            - secretRef:
+                name: flyway-secret
+          command: [ "flyway", "migrate", "-locations=filesystem:/sql" ]

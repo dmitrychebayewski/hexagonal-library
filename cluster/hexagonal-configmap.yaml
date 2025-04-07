@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hexagonal-env
+  labels:
+    app: hexagonal
+data:
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+  SPRING_DATASOURCE_USERNAME: postrges

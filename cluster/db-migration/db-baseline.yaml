@@ -7,12 +7,12 @@ metadata:
 spec:
   restartPolicy: Never
   containers:
-    - name: db-baseline
-      image: db-baseline:latest
+    - name: db-migration
+      image: db-migration:latest
       imagePullPolicy: Never
       envFrom:
         - configMapRef:
             name: flyway-env
         - secretRef:
             name: flyway-secret
-      command: ["flyway", "-locations=.", "baseline", "-baselineVersion=0"]
+      command: ["flyway", "baseline", "-locations=filesystem:/sql"]

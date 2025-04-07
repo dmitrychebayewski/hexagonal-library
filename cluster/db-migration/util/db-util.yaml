@@ -1,0 +1,26 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: db-util
+  labels:
+    app: db-util
+spec:
+  restartPolicy: Never
+  containers:
+    - name: db-migration
+      image: db-migration:latest
+      imagePullPolicy: Never
+      envFrom:
+        - configMapRef:
+            name: flyway-env
+        - secretRef:
+            name: flyway-secret
+      command: ["/bin/sh","-c","rm -rf /var/lib/postgresql/data/*"]
+#      command: ["ls","-a","/sql"]
+      volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgresdata
+  volumes:
+    - name: postgresdata
+      persistentVolumeClaim:
+        claimName: postgres-volume-claim
