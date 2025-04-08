@@ -43,7 +43,7 @@ $kubectl create secret generic hexagonal-secret --from-literal=SPRING_DATASOURCE
 ```
 
 ### Set Up The Configuration Maps
-```
+```console
 $kubectl -f apply ./cluster/postgres/postgres-configmap.yaml, cluster/db-migration/flyway-configmap.yaml, cluster/hexagonal-configmap.yaml
 ```
 ### Set Up The Storage
@@ -53,16 +53,16 @@ $kubectl -f apply cluster/postgres/persistent-volume.yaml
 ```
 ### Set Up The Postgres DB
 [more about postgres](postgres/postgres.md)
-```
+```console
 $kubectl -f apply cluster/postgres/extensions/postgres-stateful-set.yaml, cluster/postgres/extensions/postgres-load-balancer-service.yaml
 ```
 ### Configure Your Docker To Understand Your Cluster
-
-```linux
+#### Linux
+```console
 $eval $(minikube docker-env)
 ```
-
-```powershell
+#### Powershell
+```console
 PS: & minikube -p minikube docker-env --shell powershell | Invoke-Expression
 ```
 
@@ -77,22 +77,23 @@ Eval (or Windows powershell | Invoke-Expression) command makes a local docker us
 ### Deploy The Application
 #### Build the init container
 Go to infrastructure/src/main/resources/db-migration
-```
+```console
 $docker build -t db-migration .
 ```
 #### Build the app container
 Go to cluster/
-```
+```console
 $docker build -t hexagonal-service .
 ```
 #### Deploy The App
-```
+```console
 $ kubectl apply -f hexagonal-deployment.yaml, hexagonal-load-balancer-service.yaml
 ```
 ### Links
-https://medium.com/@hijessicahsu/deploy-postgres-on-minikube-5cd8f9ffc9c
-https://medium.com/swlh/deploy-spring-boot-app-on-kubernetes-minikube-on-macos-df410ef858c8
-https://www.digitalocean.com/community/tutorials/how-to-deploy-postgres-to-kubernetes-cluster
-https://blog.sebastian-daschner.com/entries/flyway-migrate-databases-managed-k8s
-https://github.com/sdaschner/zero-downtime-kubernetes/tree/db-migrations
-https://documentation.red-gate.com/fd/environments-namespace-277578909.html
+
+- [With Helm](https://medium.com/@hijessicahsu/deploy-postgres-on-minikube-5cd8f9ffc9c)
+- [With Istio-ingres](https://medium.com/swlh/deploy-spring-boot-app-on-kubernetes-minikube-on-macos-df410ef858c8)
+- [Postrges in minikube from Scratch](https://www.digitalocean.com/community/tutorials/how-to-deploy-postgres-to-kubernetes-cluster)
+- [Flyway init container master class](https://blog.sebastian-daschner.com/entries/flyway-migrate-databases-managed-k8s)
+- [Github for the previous one](https://github.com/sdaschner/zero-downtime-kubernetes/tree/db-migrations)
+- [Mystery of env variables and namespaces in Flyway](https://documentation.red-gate.com/fd/environments-namespace-277578909.html)
