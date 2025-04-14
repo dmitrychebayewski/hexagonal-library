@@ -37,29 +37,31 @@ $minikube dashboard
 
 Replace the stars in the example with your own passwords.
 ```console
-$kubectl create secret generic flyway-secret --from-literal=FLYWAY_PASSWORD=********
-$kubectl create secret generic postgres-secret --from-literal=POSTGRES_PASSWORD=********
-$kubectl create secret generic hexagonal-secret --from-literal=SPRING_DATASOURCE_PASSWORD=********
+kubectl create secret generic flyway-secret --from-literal=FLYWAY_PASSWORD=********
+kubectl create secret generic postgres-secret --from-literal=POSTGRES_PASSWORD=********
+kubectl create secret generic hexagonal-secret --from-literal=SPRING_DATASOURCE_PASSWORD=********
 ```
 
 ### Set Up The Configuration Maps
 ```console
-$kubectl -f apply ./cluster/postgres/postgres-configmap.yaml, cluster/db-migration/flyway-configmap.yaml, cluster/hexagonal-configmap.yaml
+kubectl apply -f ./cluster/postgres/postgres-configmap.yaml
+kubectl apply -f ./cluster/db-migration/flyway-configmap.yaml
+kubectl apply -f ./cluster/hexagonal-configmap.yaml
 ```
 ### Set Up The Storage
 ```console
-$kubectl -f apply cluster/postgres/persistent-volume.yaml
-
+kubectl apply -f ./cluster/postgres/persistent-volume.yaml
 ```
 ### Set Up The Postgres DB
 [more about postgres](postgres/postgres.md)
 ```console
-$kubectl -f apply cluster/postgres/extensions/postgres-stateful-set.yaml, cluster/postgres/extensions/postgres-load-balancer-service.yaml
+kubectl apply -f ./cluster/postgres/extensions/postgres-stateful-set.yaml
+kubectl apply -fcluster/postgres/extensions/postgres-load-balancer-service.yaml
 ```
 ### Configure Your Docker To Understand Your Cluster
 #### Linux
 ```console
-$eval $(minikube docker-env)
+eval $(minikube docker-env)
 ```
 #### Powershell
 ```console
@@ -67,9 +69,9 @@ PS: & minikube -p minikube docker-env --shell powershell | Invoke-Expression
 ```
 
 ### Make The Initial DB Baseline
-From the cluster directory:
+
 ```console
-$ kubectl apply -f db-migration/util/db-baseline.yaml
+$ kubectl apply -f ./cluster/db-migration/util/db-baseline.yaml
 ```
 Eval (or Windows powershell | Invoke-Expression) command makes a local docker use minikube environment 
 (to build an image directly and populate your cluster with it).
@@ -78,16 +80,17 @@ Eval (or Windows powershell | Invoke-Expression) command makes a local docker us
 #### Build the init container
 Go to infrastructure/src/main/resources/db-migration
 ```console
-$docker build -t db-migration .
+docker build -t db-migration .
 ```
 #### Build the app container
-Go to cluster/
+Go to root (hexagonal-library)
 ```console
-$docker build -t hexagonal-service .
+docker build -t hexagonal-service .
 ```
 #### Deploy The App
 ```console
-$ kubectl apply -f hexagonal-deployment.yaml, hexagonal-load-balancer-service.yaml
+kubectl apply -f ./cluster/hexagonal-deployment.yaml
+kubectl apply -f ./cluster/hexagonal-load-balancer-service.yaml
 ```
 ### Links
 

@@ -15,4 +15,4 @@ spec:
             name: flyway-env
         - secretRef:
             name: flyway-secret
-      command: ["flyway", "baseline", "-locations=filesystem:/sql"]
+      command: ["/run-flyway.sh"]

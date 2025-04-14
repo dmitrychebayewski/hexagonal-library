@@ -15,12 +15,12 @@ spec:
             name: flyway-env
         - secretRef:
             name: flyway-secret
-      command: ["/bin/sh","-c","rm -rf /var/lib/postgresql/data/*"]
-#      command: ["ls","-a","/sql"]
-      volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: postgresdata
-  volumes:
-    - name: postgresdata
-      persistentVolumeClaim:
-        claimName: postgres-volume-claim
+#      command: ["/bin/sh","-c","rm -rf /var/lib/postgresql/data/*"]
+      command: ["ls","-a","/"]
+#      volumeMounts:
+#        - mountPath: /var/lib/postgresql/data
+#          name: postgresdata
+#  volumes:
+#    - name: postgresdata
+#      persistentVolumeClaim:
+#        claimName: postgres-volume-claim
