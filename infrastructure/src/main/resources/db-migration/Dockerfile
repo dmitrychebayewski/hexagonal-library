@@ -1,4 +1,4 @@
-FROM flyway/flyway:11.6.0
+FROM registry.hub.docker.com/flyway/flyway
 RUN mkdir -p /sql/
 COPY *.sql /sql/
 COPY run-flyway.sh /run-flyway.sh
