@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: curl-response-run
+spec:
+  params:
+    - name: url
+      value: "10.244.0.4:5000/v2/_catalog"
+  taskRef:
+    name: curl

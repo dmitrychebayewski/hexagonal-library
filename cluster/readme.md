@@ -93,6 +93,10 @@ docker build -t hexagonal-service .
 kubectl apply -f ./cluster/hexagonal-deployment.yaml
 kubectl apply -f ./cluster/hexagonal-load-balancer-service.yaml
 ```
+### Build and Push Yor App With Tekton
+
+[Go to ->](./tekton-pipelines/readme.md)
+
 ### Links
 - [comparing 8 ways to push your image into a minikube cluster](https://minikube.sigs.k8s.io/docs/handbook/pushing/)
 - [With Helm](https://medium.com/@hijessicahsu/deploy-postgres-on-minikube-5cd8f9ffc9c)
