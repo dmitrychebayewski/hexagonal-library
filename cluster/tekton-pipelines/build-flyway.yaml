@@ -33,13 +33,14 @@ spec:
           --file Dockerfile \
           --tag $(params.IMAGE):$(params.version) \
           .
+# TODO make work with minikube internal registries
 #        buildah push \
 #          --tls-verify=false \
 #          --log-level=trace \
 #          --storage-driver=vfs \
 #          --digestfile $(workspaces.source.path)/image-digest \
 #          $(params.IMAGE):$(params.version) \
-#          localhost:5000/$(params.IMAGE):$(params.version)
+#          registry.dev.svc.cluster.local:5000/$(params.IMAGE):$(params.version)
 
       volumeMounts:
         - name: varlibcontainers

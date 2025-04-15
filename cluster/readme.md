@@ -29,9 +29,10 @@ We'll need to complete the following crucial points in the cluster:
 ### Start Minikube
 
 ```console
-$kubectl config use-context minikube
-$minikube start — vm-driver=virtualbox
-$minikube dashboard
+kubectl config use-context minikube
+minikube start --insecure-registry registry.dev.svc.cluster.local:5000
+minikube addons enable registry
+minikube dashboard
 ```
 ### Set Up Environment Variables In The Cluster
 
@@ -93,7 +94,7 @@ kubectl apply -f ./cluster/hexagonal-deployment.yaml
 kubectl apply -f ./cluster/hexagonal-load-balancer-service.yaml
 ```
 ### Links
-
+- [comparing 8 ways to push your image into a minikube cluster](https://minikube.sigs.k8s.io/docs/handbook/pushing/)
 - [With Helm](https://medium.com/@hijessicahsu/deploy-postgres-on-minikube-5cd8f9ffc9c)
 - [With Istio-ingres](https://medium.com/swlh/deploy-spring-boot-app-on-kubernetes-minikube-on-macos-df410ef858c8)
 - [Postrges in minikube from Scratch](https://www.digitalocean.com/community/tutorials/how-to-deploy-postgres-to-kubernetes-cluster)

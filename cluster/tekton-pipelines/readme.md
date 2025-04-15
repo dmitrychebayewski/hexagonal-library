@@ -1,12 +1,7 @@
 https://www.justinpolidori.it/posts/20211127_tekton/
 https://tekton.dev/docs/dashboard/install/#installing-tekton-dashboard-on-kubernetes
+https://gist.github.com/trisberg/37c97b6cc53def9a3e38be6143786589
 
-##
-```console
-cat ~/.ssh/known_hosts | base64
-cat ~/.ssh/_priv_key_| base64
-cat ~/.ssh/config | base64
-```
 ## Tekton
 
 ```console
@@ -17,12 +12,12 @@ kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboar
 brew install tektoncd-cli
 tkn hub install task git-clone
 ```
-## Pipeline
+## Build Pipeline
 ```console
 kubectl apply -f ./cluster/tekton-pipelines/show-readme.yaml
 kubectl apply -f ./cluster/tekton-pipelines/build-flyway.yaml
 kubectl apply -f ./cluster/tekton-pipelines/build.yaml
-kubectl apply -f ./cluster/tekton-pipelines/build-run.yaml
+kubectl create -f ./cluster/tekton-pipelines/build-run.yaml
 ```
 
 ## Argo CD
@@ -33,3 +28,27 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/re
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ```
+
+```console
+docker run -v $(pwd):/workspace  \
+    gcr.io/kaniko-project/executor:latest \
+    --dockerfile=/workspace/Dockerfile  \
+    --context=/workspace \
+    --destination=registry.dev.svc.cluster.local:5000/hello \
+    --insecure-registry=registry.dev.svc.cluster.local:5000 \
+    --insecure --verbosity=trace
+docker \
+    run -v $(pwd):/build \
+    -v /var/lib/containers1:/var/lib/containers:Z \
+    quay.io/buildah/stable \
+    buildah build \
+    --storage-driver=vfs \
+    --layers \
+    --file Dockerfile \
+    --tag hello:0.0.1 
+```
+
+"InsecureRegistry": [
+"10.96.0.0/12",
+"registry.dev.svc.cluster.local:5000"
+]
