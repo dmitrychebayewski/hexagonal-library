@@ -45,10 +45,11 @@ Minikube is compatible with a family of the orchestrators including OpenShift an
 ## Start Using The Code
 
 Assuming that your development environment meets the following prerequisites:
-- Windows 11 wit recent WSL or MacOs
+- Windows 11 with recent WSL or Mac Os
 - Docker desktop
 - minikube
 - kubectl
+
 start the workshop!
 Given you are familiar with Java, know how to set up TCP/IP networking and DNS, it will take you from 15 to 240 minutes to complete 
 the exercise.
