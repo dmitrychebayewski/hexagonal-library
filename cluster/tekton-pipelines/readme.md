@@ -99,19 +99,13 @@ Here a decent readme explaining how to set up your local Docker registries.
 - [Gist explaining how the Docker insecure registry is accessed both from the host and the cluster](https://gist.github.com/trisberg/37c97b6cc53def9a3e38be6143786589)
 
 ## More work to do (under construction...)
-### Argo CD
-Argo CD is a declarative, GitOps continuous delivery tool (both for your application and deployment code)
-for Kubernetes or OpenShift cluster.
-With argo Cd your deployment continuously delivered to yur customer!
+## [-> Go to Argo CD](../git-ops/readme.md)
 
+## Tools
+Running test build inside minikube
+Go to minikube
 ```console
-kubectl create ns argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/refs/heads/master/manifests/install.yaml
-kubectl port-forward svc/argocd-server -n argocd 8080:443
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-```
-
-```console
+minikube ssh
 docker run -v $(pwd):/workspace  \
     gcr.io/kaniko-project/executor:latest \
     --dockerfile=/workspace/Dockerfile  \
@@ -120,6 +114,7 @@ docker run -v $(pwd):/workspace  \
     --insecure-registry=10.244.0.4:5000 \
     --insecure --verbosity=trace
 ```
+You can create Dockerfile using one of examples below
 ### Sample Dockerfile to play with
 ```dockerfile
 FROM node:14
