@@ -59,11 +59,11 @@ Why is Flyway migration with InitContainer interesting? Decoupling the database 
 is a step forward towards zero-downtime deployment.
 InitContainer is a special container (we can consider it a co-container to a pod) 
 that run to completion during Pod initialization.
-Some ideas how for how to use init containers (await a service, pre-fetch data) make a suggestion 
+Some ideas for how to use init containers (await a service, pre-fetch data) make a suggestion 
 that we can prepare Flyway migrations with an init container.
 
 Before we try to automate the entire deployment,
-it is vert important to see every single K8S piece working locally according to the specification!
+it is important to see every single K8S piece working locally according to the specification!
 We'll need to see the following crucial points in the cluster working:
 - Environment variables, keeping the passwords, in the cluster are set up;
 - Environment variables, keeping the configuration values (config maps) are set up; 
