@@ -55,6 +55,22 @@ flyway baseline -user=postgres -password=******** -url=jdbc:postgresql://localho
 ```console
 mvn clean install
 ``` 
+### Build the application making flyway migrate data
+The command will activate Maven profile 'testrun'.
+The command will activate Maven profile 'testrun'.
+'testrun' profile includes the flyway dependencies, and
+flyway migration will be done automatically into H2 memory DB.
+```console
+mvn clean install -Ptestrun
+```
+
+### Run tests making flyway migrate data
+The command will activate Maven profile 'testrun'.
+'testrun' profile includes the flyway dependencies, and
+flyway migration will be done automatically into H2 memory DB. 
+```console
+mvn clean test -Ptestrun
+```
 
 ### Configure the following environment variables
 ```
@@ -65,7 +81,7 @@ SPRING_DATASOURCE_PASSWORD
 and launch LibraryApplication.java from the [launcher](./launcher) module.
 The application is served automatically after a while.
 
-## Complete a FlyWay Migration
+## Complete a FlyWay Migration in a separate command
 ```console
 flyway migrate -user=postgres -password=******** -url=jdbc:postgresql://localhost:5432/postgres -locations=filesystem:infrastructure/src/main/resources/db-migration
 ```

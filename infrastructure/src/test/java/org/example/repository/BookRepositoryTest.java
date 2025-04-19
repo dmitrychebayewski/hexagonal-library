@@ -7,7 +7,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.Assert.assertNotNull;
 
-@ActiveProfiles("test")
 public class BookRepositoryTest extends BaseIntegrationTest {
     @Mock
     private BookRepository bookRepository;
