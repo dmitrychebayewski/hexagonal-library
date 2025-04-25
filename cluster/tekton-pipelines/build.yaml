@@ -35,8 +35,21 @@ spec:
       workspaces:
         - name: source
           workspace: shared-data
+    - name: check-docker-file
+      taskRef:
+        name: check-file-exists
+      workspaces:
+        - name: source
+          workspace: shared-data
+      params:
+        - name: FILE_PATH
+          value: "infrastructure/src/main/resources/db-migration/Dockerfile"
     - name: build-flyway-image
-      runAfter: [ "show-readme" ]
+      runAfter: [ "check-docker-file" ]
+      when:
+        - input: "$(tasks.check-docker-file.results.EXISTS)"
+          operator: in
+          values: ['true']
       taskRef:
         name: buildah-flyway
       workspaces:

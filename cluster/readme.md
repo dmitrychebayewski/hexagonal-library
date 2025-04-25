@@ -79,7 +79,7 @@ for your testing purposes.
 The following command parameters take care that a registry with 'registry.dev.svc.cluster.local' host name and port 5000 is set up in the cluster
  - -insecure-registry registry.dev.svc.cluster.local:5000
 ```console
-kubectl config use-context minikube
+
 minikube start --insecure-registry registry.dev.svc.cluster.local:5000
 minikube addons enable registry
 minikube dashboard
@@ -109,7 +109,7 @@ kubectl apply -f ./cluster/postgres/persistent-volume.yaml
 [more about postgres](postgres/postgres.md)
 ```console
 kubectl apply -f ./cluster/postgres/extensions/postgres-stateful-set.yaml
-kubectl apply -fcluster/postgres/extensions/postgres-load-balancer-service.yaml
+kubectl apply -f ./cluster/postgres/extensions/postgres-load-balancer-service.yaml
 ```
 ### Configure Your Docker To Push Images to Your Cluster's Registry
 Eval (or Windows powershell | Invoke-Expression) command makes a local docker use minikube environment

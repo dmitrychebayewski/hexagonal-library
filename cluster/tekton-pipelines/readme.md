@@ -48,6 +48,7 @@ Let's create our pipeline!
 
 ```console
 kubectl apply -f ./cluster/tekton-pipelines/show-readme.yaml
+kubectl apply -f ./cluster/tekton-pipelines/check-file-exists.yaml
 kubectl apply -f ./cluster/tekton-pipelines/build-flyway.yaml
 kubectl apply -f ./cluster/tekton-pipelines/build.yaml
 ```

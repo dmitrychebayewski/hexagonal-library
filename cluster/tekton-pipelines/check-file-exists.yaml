@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: check-file-exists
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: FILE_PATH
+      description: Path to the file to check, relative to workspace root
+      type: string
+  results:
+    - name: EXISTS
+      description: "true if file exists, false otherwise"
+  steps:
+    - name: check-file
+      image: alpine
+      script: |
+        if [ -f "$(workspaces.source.path)/$(params.FILE_PATH)" ]; then
+          printf "true" | tee $(results.EXISTS.path)
+        else
+          printf "false" | tee $(results.EXISTS.path)
+        fi
