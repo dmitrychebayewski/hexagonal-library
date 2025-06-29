@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Redgate Flyway for DevOps</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #003f5c;
+            color: #f1f5f9;
+        }
+        .card {
+            background-color: #2f4b7c;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-arrow {
+            font-size: 2rem;
+            color: #ffa600;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+    <header class="text-center py-8 md:py-10">
+        <h1 class="text-4xl md:text-6xl font-black text-white uppercase tracking-wider">De stille kracht van DevOps team voor uw database</h1>
+        <p class="mt-4 text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto">Een gids voor de Redgate Flyway Community Edition</p>
+    </header>
+
+    <main class="space-y-16">
+
+        <section id="problem" class="text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Het knelpunt van handmatig opwaarderen</h2>
+            <p class="text-lg text-slate-300 max-w-3xl mx-auto mb-8">Handmatige wijzigingen aan databaseschema's zijn een hoofdbron van fricties bij de implementatie, waardoor een “dubbele-track” proces ontstaat waarbij database staat achter de applicatiecode oploopt en uw gehele uitrol wordt vertraagd.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card bg-rose-900/50 border border-rose-700">
+                    <h3 class="text-2xl font-bold text-white mb-2">Human Error Prone</h3>
+                    <p class="text-rose-200">Typos, omissions, and incorrect script order lead to failed deployments and data corruption.</p>
+                </div>
+                <div class="card bg-amber-900/50 border border-amber-700">
+                    <h3 class="text-2xl font-bold text-white mb-2">Schema Drift</h3>
+                    <p class="text-amber-200">Inconsistencies between Dev, Test, and Prod environments cause elusive "it works on my machine" bugs.</p>
+                </div>
+                <div class="card bg-indigo-900/50 border border-indigo-700">
+                    <h3 class="text-2xl font-bold text-white mb-2">Deployment Delays</h3>
+                    <p class="text-indigo-200">Slow, manual processes act as a brake on Agile and DevOps velocity, delaying value delivery.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">Flyway: Database Migrations as Code</h2>
+            <p class="text-lg text-slate-300 max-w-3xl mx-auto mb-10 text-center">Flyway brengt de DevOps principes van versiebeheer en automatisering naar uw databasebeheer en behandelt schemawijzigingen als code om een veilige, herhaalbare en traceerbare implementatiewijze te waarborgen.</p>
+            <div class="card">
+                <h3 class="text-xl font-semibold text-white mb-6 text-center">De basisworkflow</h3>
+                <div class="flex flex-col md:flex-row items-center justify-around space-y-4 md:space-y-0 md:space-x-4 text-center">
+                    <div class="flex flex-col items-center">
+                        <div class="text-6xl mb-2">👨‍💻</div>
+                        <div class="font-bold text-lg">Developer</div>
+                        <p class="text-sm text-slate-300">Writes SQL script<br/>(e.g., V1__create_table.sql)</p>
+                    </div>
+                    <div class="flowchart-arrow">→</div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-6xl mb-2">📁</div>
+                        <div class="font-bold text-lg">Version Control</div>
+                        <p class="text-sm text-slate-300">Commits script to Git,<br/>creating a single source of truth</p>
+                    </div>
+                    <div class="flowchart-arrow">→</div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-6xl mb-2">⚙️</div>
+                        <div class="font-bold text-lg">Flyway Engine</div>
+                        <p class="text-sm text-slate-300">Reads, validates, and sorts<br/>pending migration scripts</p>
+                    </div>
+                    <div class="flowchart-arrow">→</div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-6xl mb-2">💾</div>
+                        <div class="font-bold text-lg">Database</div>
+                        <p class="text-sm text-slate-300">Applies script and updates<br/>the schema history table</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">Kernmechanisme uitgelegd</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-white mb-4">Versioned vs. Repeatable Migrations</h3>
+                    <p class="text-slate-300 mb-6">Flyway gebruikt twee soorten migraties. Versioned (`V`) scenario's worden precies één keer uitgevoerd, terwijl Repeatable (`R`) scenario's opnieuw worden uitgevoerd als hun inhoud (checksum) verandert, ideaal voor objecten zoals views of procedures.</p>
+                    <div class="relative pl-8 border-l-2 border-slate-500">
+                        <div class="absolute w-4 h-4 bg-f95d6a rounded-full -left-2 top-1"></div>
+                        <h4 class="font-bold text-lg text-f95d6a">V1_Init.sql</h4>
+                        <p class="text-sm text-slate-300 mb-6">Applied once. Immutable.</p>
+
+                        <div class="absolute w-4 h-4 bg-f95d6a rounded-full -left-2 top-[calc(25%+1.5rem)]"></div>
+                        <h4 class="font-bold text-lg text-f95d6a">V2_Add_Users_Table.sql</h4>
+                        <p class="text-sm text-slate-300 mb-6">Applied once. Immutable.</p>
+
+                        <div class="absolute w-4 h-4 bg-ffa600 rounded-full -left-2 top-[calc(50%+3rem)]"></div>
+                        <h4 class="font-bold text-lg text-ffa600">R_Update_User_View.sql</h4>
+                        <p class="text-sm text-slate-300 mb-6">Applied after all 'V' scripts. Re-runs on change.</p>
+
+                        <div class="absolute w-4 h-4 bg-f95d6a rounded-full -left-2 top-[calc(75%+4.5rem)]"></div>
+                        <h4 class="font-bold text-lg text-f95d6a">V3_Add_Index.sql</h4>
+                        <p class="text-sm text-slate-300">Applied once. Immutable.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-white mb-4">The Audit Trail: `flyway_schema_history`</h3>
+                    <p class="text-slate-300 mb-6">Flyway maakt en beheert automatisch een historietabel in uw database. Deze tabel functioneert als een niet-wijzigbaar logboek, biedt een volledig controletraject van elke wijziging en waarborgt de integriteit met checksums.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-slate-700/50 text-slate-300 uppercase">
+                            <tr>
+                                <th class="p-3">version</th>
+                                <th class="p-3">description</th>
+                                <th class="p-3">checksum</th>
+                                <th class="p-3">success</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="border-b border-slate-600">
+                                <td class="p-3">1</td>
+                                <td class="p-3">Init</td>
+                                <td class="p-3 font-mono text-xs">...a1b2c3d4</td>
+                                <td class="p-3 text-green-400">✔</td>
+                            </tr>
+                            <tr class="border-b border-slate-600">
+                                <td class="p-3">2</td>
+                                <td class="p-3">Add Users Table</td>
+                                <td class="p-3 font-mono text-xs">...e5f6g7h8</td>
+                                <td class="p-3 text-green-400">✔</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">3</td>
+                                <td class="p-3">Add Index</td>
+                                <td class="p-3 font-mono text-xs">...i9j0k1l2</td>
+                                <td class="p-3 text-red-400">✖</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">(Semi)handmatig vs Flyway</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card border border-rose-700">
+                    <h3 class="text-2xl font-bold text-rose-300 mb-4">The Manual Way ❌</h3>
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start"><span class="mr-3 mt-1">🐞</span><span>Inconsistent environments lead to bugs.</span></li>
+                        <li class="flex items-start"><span class="mr-3 mt-1">🐌</span><span>Slow, error-prone deployment process.</span></li>
+                        <li class="flex items-start"><span class="mr-3 mt-1">❓</span><span>No clear audit trail of who changed what, when.</span></li>
+                        <li class="flex items-start"><span class="mr-3 mt-1">🧱</span><span>DBAs become a bottleneck for development teams.</span></li>
+                        <li class="flex items-start"><span class="mr-3 mt-1">🔥</span><span>High risk of data loss or failed deployments.</span></li>
+                    </ul>
+                </div>
+                <div class="card border border-teal-500">
+                    <h3 class="text-2xl font-bold text-teal-300 mb-4">The Flyway ✅</h3>
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start"><span class="mr-3 mt-1">🌍</span><span>Identical schema state across all environments.</span></li>
+                        <li class="flex items-start"><span class="mr-3 mt-1">🚀</span><span>Fast, automated, and reliable deployments.</span></li>
+                        <li class="flex items-start"><span class="mr-3 mt-1">📜</span><span>Immutable, version-controlled audit trail.</span></li>
+                        <li class="flex items-start"><span class="mr-3 mt-1">🤝</span><span>Improved collaboration and developer self-service.</span></li>
+                        <li class="flex items-start"><span class="mr-3 mt-1">🛡️</span><span>Reduced risk through automation and validation.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="drawbacks">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">De valkuil: Beperkingen van de Community-editie</h2>
+            <p class="text-lg text-slate-300 max-w-3xl mx-auto mb-10 text-center">Flyway Community is al zeer krachtig, maar het is belangrijk om de beperkingen te weten. Functies zoals automatische `undo` scenario's en driftdetectie zijn alleen beschikbaar voor de betaaledities (abonementen).</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-white mb-4">Key Drawbacks to Consider</h3>
+                    <ul class="space-y-4 text-slate-300">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-4 text-amber-400">↩️</span>
+                            <div>
+                                <h4 class="font-bold">No Automatic `undo`</h4>
+                                <p class="text-sm">Rollbacks require manually written "undo" scripts and a robust backup/restore strategy.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-4 text-amber-400">📜</span>
+                            <div>
+                                <h4 class="font-bold">Migration Proliferation</h4>
+                                <p class="text-sm">The "fix-forward" approach can lead to a large number of scripts, impacting maintainability over time.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-4 text-amber-400">🧑‍🤝‍🧑</span>
+                            <div>
+                                <h4 class="font-bold">Community-Only Support</h4>
+                                <p class="text-sm">Support relies on forums, which may not be sufficient for business-critical production issues.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-white mb-4">Illustratieve functievergelijking</h3>
+                    <p class="text-slate-300 mb-6">Terwijl Community Edition de belangrijkste functionaliteit levert, voegen betaalde edities belangrijke enterprise -grade capaciteiten toe voor governance, automatisering en onderhoud.</p>
+                    <div class="chart-container h-72">
+                        <canvas id="featureChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="devops">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">Flyway in the Agile Team: A CI/CD Workflow</h2>
+            <p class="text-lg text-slate-300 max-w-3xl mx-auto mb-10 text-center">Flyway integreert moeiteloos in een CI/CD-straat, herdefinieert de rolverdeling en stimuleert de samenwerking aanzienlijk. De rol van de DBA verschuift van een bewaker naar een strategische reviewer of een adviseur voor developers, maar samen met developers is de DBA medeverantwoordelijk voor de kwaliteit van de databaseschema migraties.</p>
+            <div class="card md:p-10">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-x-6 gap-y-8">
+
+                    <div class="text-center p-4 rounded-lg bg-slate-800/50">
+                        <h4 class="font-bold text-lg text-white">1. Developer</h4>
+                        <p class="text-sm text-slate-300 mt-2">Commits application code and a new migration script (`V4_add_col.sql`) to a feature branch.</p>
+                    </div>
+
+                    <div class="flex items-center justify-center flowchart-arrow self-center transform md:rotate-0 rotate-90">→</div>
+
+                    <div class="text-center p-4 rounded-lg bg-slate-800/50">
+                        <h4 class="font-bold text-lg text-white">2. CI Server</h4>
+                        <p class="text-sm text-slate-300 mt-2">On Pull Request, triggers a build. Spins up a temporary DB, runs `flyway migrate`, and executes automated tests against the new schema.</p>
+                    </div>
+
+                    <div class="flex items-center justify-center flowchart-arrow self-center transform md:rotate-0 rotate-90">→</div>
+
+                    <div class="text-center p-4 rounded-lg bg-slate-800/50">
+                        <h4 class="font-bold text-lg text-white">3. DBA / Peer Review</h4>
+                        <p class="text-sm text-slate-300 mt-2">Tests pass. A DBA reviews the migration script for performance, security, and standards. Approves the PR.</p>
+                    </div>
+
+                    <div class="col-span-1 md:col-span-5 flex items-center justify-center flowchart-arrow self-center transform rotate-90 md:my-6">↓</div>
+
+                    <div class="text-center p-4 rounded-lg bg-slate-800/50 col-start-1 md:col-start-5">
+                        <h4 class="font-bold text-lg text-white">4. Merge & Deploy</h4>
+                        <p class="text-sm text-slate-300 mt-2">PR is merged to `main`. The CD pipeline triggers, deploying the application and running `flyway migrate` against the Production DB.</p>
+                    </div>
+
+                    <div class="flex items-center justify-center flowchart-arrow self-center transform md:rotate-180 rotate-90">→</div>
+
+                    <div class="text-center p-4 rounded-lg bg-slate-800/50 col-start-1 md:col-start-3">
+                        <h4 class="font-bold text-lg text-white">5. Monitor</h4>
+                        <p class="text-sm text-slate-300 mt-2">Deployment is complete. The system is monitored for performance and stability. The schema history table reflects the new version.</p>
+                    </div>
+
+                    <div class="flex items-center justify-center flowchart-arrow self-center transform md:rotate-180 rotate-90">→</div>
+
+                    <div class="text-center p-4 rounded-lg bg-slate-800/50 col-start-1">
+                        <h4 class="font-bold text-lg text-white">Cycle Repeats</h4>
+                        <p class="text-sm text-slate-300 mt-2">The team is ready for the next iteration, with a reliable and automated process in place.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center py-12">
+            <h2 class="text-3xl font-bold text-white mb-4">Conclusie: Met een gerust hart toepassen</h2>
+            <p class="text-lg text-slate-300 max-w-3xl mx-auto mb-8">Een opzet van onze CI/CD Pipeline met Flyway Community Edition is een belangrijke eerste stap in Database DevOps. Door de DevOps principes te adopteren en de risico's te begrijpen, kan uw team de snelheid, veiligheid en betrouwbaarheid van uw database implementaties aanzienlijk verbeteren.</p>
+        </footer>
+
+    </main>
+</div>
+
+<script>
+    function wrapLabels(label, maxWidth) {
+        if (typeof label !== 'string' || label.length <= maxWidth) {
+            return label;
+        }
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        for (const word of words) {
+            if ((currentLine + ' ' + word).trim().length > maxWidth) {
+                lines.push(currentLine.trim());
+                currentLine = word;
+            } else {
+                currentLine = (currentLine + ' ' + word).trim();
+            }
+        }
+        if (currentLine) {
+            lines.push(currentLine.trim());
+        }
+        return lines;
+    }
+
+    const tooltipTitleCallback = (tooltipItems) => {
+        const item = tooltipItems[0];
+        let label = item.chart.data.labels[item.dataIndex];
+        if (Array.isArray(label)) {
+            return label.join(' ');
+        } else {
+            return label;
+        }
+    };
+
+    const featureChartData = {
+        labels: [
+            'Core Migration Engine',
+            'Version Control Integration',
+            'Undo Migrations',
+            wrapLabels('Advanced Drift & Change Reporting', 16),
+            'Script Generation',
+            'Enterprise Support'
+        ],
+        datasets: [{
+            label: 'Community Edition',
+            data: [10, 10, 0, 0, 0, 0],
+            backgroundColor: '#665191',
+            borderColor: '#2f4b7c',
+            borderWidth: 2
+        }, {
+            label: 'Teams/Enterprise Edition',
+            data: [10, 10, 8, 9, 7, 10],
+            backgroundColor: '#ffa600',
+            borderColor: '#f95d6a',
+            borderWidth: 2
+        }]
+    };
+
+    const featureChartConfig = {
+        type: 'bar',
+        data: featureChartData,
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    stacked: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    ticks: { color: '#f1f5f9', font: { weight: '600' } }
+                },
+                y: {
+                    stacked: true,
+                    grid: { display: false },
+                    ticks: { color: '#f1f5f9', font: { weight: '600' } }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: '#f1f5f9',
+                        font: { size: 14, weight: '600' }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        }
+    };
+
+    window.addEventListener('load', () => {
+        const featureChartCtx = document.getElementById('featureChart').getContext('2d');
+        new Chart(featureChartCtx, featureChartConfig);
+    });
+</script>
+
+</body>
+</html><!--
+Color Palette Chosen: Brilliant Blues (#003f5c, #2f4b7c, #665191, #a05195, #d45087, #f95d6a, #ff7c43, #ffa600)
+Mermaid JS was not used in this output.
+SVG graphics were not used in this output.
+-->
