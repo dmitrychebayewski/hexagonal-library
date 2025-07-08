@@ -6,4 +6,4 @@ metadata:
     app: flyway
 data:
   FLYWAY_URL: jdbc:postgresql://postgres:5432/postgres
-  FLYWAY_USER: postrges
+  FLYWAY_USER: postgres

@@ -123,12 +123,6 @@ eval $(minikube docker-env)
 PS: & minikube -p minikube docker-env --shell powershell | Invoke-Expression
 ```
 
-### Make The Initial DB Baseline
-
-```console
-$ kubectl apply -f ./cluster/db-migration/util/db-baseline.yaml
-```
-
 ### Deploy The Application
 You have to deploy your solution so that the database is initialised even before the cluster start up to wind your app.
 You can achieve it with [InitContainer](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) pattern.
@@ -139,11 +133,13 @@ and build the db-migration image. The image will be automatically pushed to the 
 [Dockerfile](../infrastructure/src/main/resources/db-migration/Dockerfile) is a spec how to build an "all-in-one" mini-app
 fulfilling the specific need (import the database changes with FlyWay).
 ```console
+eval $(minikube docker-env)
 docker build -t db-migration .
 ```
 #### Build the app container
 Go to root [hexagonal-library](..) and build the port-adapter service as spring boot application. 
 ```console
+eval $(minikube docker-env)
 docker build -t hexagonal-service .
 ```
 Finally, deploy the application.

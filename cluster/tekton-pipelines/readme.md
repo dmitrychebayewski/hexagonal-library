@@ -34,7 +34,7 @@ kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/triggers/latest/interceptors.yaml
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/release.yaml
-brew install tektoncd-cli
+(once) brew install tektoncd-cli
 tkn hub install task git-clone
 tkn hub install task curl
 ```

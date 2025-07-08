@@ -1,4 +1,4 @@
-### Postrges As Stateful Set - Load Balancer
+### postgres As Stateful Set - Load Balancer
 
 Why is StatefulSet an interesting option to consider for your postgres as pod?
 Well, read this if you naively think that postgres as pod just works as expected.

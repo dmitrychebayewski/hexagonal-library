@@ -1,10 +1,10 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: clone-read
+  name: clone-build
 spec:
   description: |
-    This pipeline clones a git repo, then echoes the README file to the stout.
+    This pipeline clones a git repo, then echoes the README file to the stout and them makes a custom build of the Flyway image
   params:
     - name: repo-url
       type: string
@@ -36,6 +36,7 @@ spec:
         - name: source
           workspace: shared-data
     - name: check-docker-file
+      runAfter: ["fetch-source" ]
       taskRef:
         name: check-file-exists
       workspaces:

@@ -40,7 +40,7 @@ Assuming that your development environment meets the following prerequisites:
 - Maven;
 - [Flyway](https://documentation.red-gate.com/flyway);
 - IntelliJ or Visual Studio Code IDE;
-- Postrges DB
+- Postgres DB
 
 and you are already familiar with Java Web or Enterprise development, it will take from 15 to 240 minutes to complete the example.
 
