@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: clone-build
+  name: build-application
 spec:
   description: |
     This pipeline clones a git repo, then echoes the README file to the stout and them makes a custom build of the Flyway image
@@ -28,14 +28,7 @@ spec:
       params:
         - name: url
           value: $(params.repo-url)
-    - name: show-readme
-      runAfter: ["fetch-source"]
-      taskRef:
-        name: show-readme
-      workspaces:
-        - name: source
-          workspace: shared-data
-    - name: check-docker-file
+    - name: check-init-container-docker-file
       runAfter: ["fetch-source" ]
       taskRef:
         name: check-file-exists
@@ -46,13 +39,62 @@ spec:
         - name: FILE_PATH
           value: "infrastructure/src/main/resources/db-migration/Dockerfile"
     - name: build-flyway-image
-      runAfter: [ "check-docker-file" ]
+      runAfter: [ "check-init-container-docker-file" ]
       when:
-        - input: "$(tasks.check-docker-file.results.EXISTS)"
+        - input: "$(tasks.check-init-container-docker-file.results.EXISTS)"
           operator: in
           values: ['true']
       taskRef:
-        name: buildah-flyway
+        name: build-custom-image
       workspaces:
         - name: source
           workspace: shared-data
+      params:
+        - name: DOCKERFILE_PATH
+          value: infrastructure/src/main/resources/db-migration
+    - name: build-spring-app
+      runAfter: [ "build-flyway-image" ]
+      taskRef:
+        name: mvn-build
+      workspaces:
+        - name: source
+          workspace: shared-data
+      params:
+          - name: is-springboot-app-launcher
+            value: 'false'
+    - name: repackage-spring-app
+      runAfter: [ "build-spring-app" ]
+      taskRef:
+        name: mvn-build
+      workspaces:
+        - name: source
+          workspace: shared-data
+      params:
+        - name: is-springboot-app-launcher
+          value: 'true'
+        - name: PATH
+          value: 'launcher'
+    - name: check-app-docker-file
+      runAfter: [ "repackage-spring-app" ]
+      taskRef:
+        name: check-file-exists
+      workspaces:
+        - name: source
+          workspace: shared-data
+      params:
+        - name: FILE_PATH
+          value: "Dockerfile"
+    - name: build-springboot-app-image
+      runAfter: [ "check-app-docker-file" ]
+      when:
+        - input: "$(tasks.check-app-docker-file.results.EXISTS)"
+          operator: in
+          values: [ 'true' ]
+      taskRef:
+        name: build-custom-image
+      workspaces:
+        - name: source
+          workspace: shared-data
+      params:
+        - name: DOCKERFILE_PATH
+          value: ''

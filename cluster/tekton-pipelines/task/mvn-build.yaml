@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: mvn-build
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: PATH
+      default: ''
+      description: Path to the file to check, relative to workspace root
+    - name: is-springboot-app-launcher
+      default: 'true'
+      type: string
+    - name: image
+      default: docker.io/maven:3.9.10-eclipse-temurin-21
+
+  steps:
+    - name: build
+      image: $(params.image)
+      workingDir: $(workspaces.source.path)/$(params.PATH)
+      script: |
+        if $(params.is-springboot-app-launcher); then
+          mvn package spring-boot:repackage -U -DskipTests -DskipITs
+        else
+          mvn package -U -DskipTests -DskipITs
+        fi

@@ -80,7 +80,8 @@ The following command parameters take care that a registry with 'registry.dev.sv
  - -insecure-registry registry.dev.svc.cluster.local:5000
 ```console
 
-minikube start --insecure-registry registry.dev.svc.cluster.local:5000
+minikube start --insecure-registry "10.0.0.0/24"
+-- of 10.244.0.0/24 
 minikube addons enable registry
 minikube dashboard
 ```

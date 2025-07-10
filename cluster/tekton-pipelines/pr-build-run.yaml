@@ -1,10 +1,10 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: clone-build-run-
+  generateName: build-application-run-
 spec:
   pipelineRef:
-    name: clone-build
+    name: build-application
   podTemplate:
     securityContext:
       fsGroup: 65532

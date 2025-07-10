@@ -47,9 +47,10 @@ Your pipeline will in the first go consist of three small steps:
 Let's create our pipeline!
 
 ```console
-kubectl apply -f ./cluster/tekton-pipelines/show-readme.yaml
-kubectl apply -f ./cluster/tekton-pipelines/check-file-exists.yaml
-kubectl apply -f ./cluster/tekton-pipelines/build-flyway.yaml
+
+kubectl apply -f ./cluster/tekton-pipelines/task/check-file-exists.yaml
+kubectl apply -f ./cluster/tekton-pipelines/task/build-custom-image.yaml
+kubectl apply -f ./cluster/tekton-pipelines/task/mvn-build.yaml
 kubectl apply -f ./cluster/tekton-pipelines/build.yaml
 ```
 Let's start a proxy:
@@ -70,7 +71,7 @@ Kaniko seems to be Tekton first choice, but we'll focus on buildah (separate ste
 Now let's create a pipeline run!
 
 ```console
-kubectl create -f ./cluster/tekton-pipelines/build-run.yaml
+kubectl create -f ./cluster/tekton-pipelines/pr-build-run.yaml
 ```
 and see it working on a Tekton dashboard.
 
@@ -87,14 +88,14 @@ minikube dashboard
 ### Troubleshooting building Docker images inside a pod
 
 The tricky thing, both Kaniko and Buildah make a ping to (insecure) Docker registry 
-[endpoint, configured in the cluster](build-flyway.yaml) before pushing an image.
+[endpoint, configured in the cluster](task/build-custom-image.yaml) before pushing an image.
 So basically if the endpoint is not reachable, kaniko or buildah will gracefully fail the job.
 How to know the endpoint so that it is pingable?
 Well, for the time being use the IP address that you can obtain fron the minikube console -> services (all namespaces) -> registry.
 
 ### Troubleshooting routing issues with curl
 Configure and run a curl task to debug your endpoints within the cluster:
-[curl-run](task-runs/curl-run.yaml)
+[curl-run](task-run/curl-run.yaml)
 
 Here a decent readme explaining how to set up your local Docker registries.
 - [Gist explaining how the Docker insecure registry is accessed both from the host and the cluster](https://gist.github.com/trisberg/37c97b6cc53def9a3e38be6143786589)
@@ -111,9 +112,19 @@ docker run -v $(pwd):/workspace  \
     gcr.io/kaniko-project/executor:latest \
     --dockerfile=/workspace/Dockerfile  \
     --context=/workspace \
-    --destination=10.244.0.4:5000/hello \
-    --insecure-registry=10.244.0.4:5000 \
+    --destination=10.244.0.3:5000/hello \
+    --insecure-registry=10.244.0.3:5000 \
     --insecure --verbosity=trace
+    
+    docker run -v $(pwd):/workspace  \
+    gcr.io/kaniko-project/executor:latest \
+    --dockerfile=/workspace/Dockerfile  \
+    --context=/workspace \
+    --destination=registry.dev.svc.cluster.local:5000/hello \
+    --insecure-registry=registry.dev.svc.cluster.local:5000 \
+    --insecure --verbosity=trace
+    
+    
 ```
 You can create Dockerfile using one of examples below
 ### Sample Dockerfile to play with

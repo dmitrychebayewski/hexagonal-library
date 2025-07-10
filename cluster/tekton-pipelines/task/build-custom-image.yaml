@@ -1,0 +1,62 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-custom-image
+spec:
+  description: build flyway image.
+  params:
+    - name: REGISTRY
+      description: Reference of the image registry host.
+      default: 10.244.0.3:5000
+    - name: IMAGE
+      description: Reference of the image buildah will produce.
+      default: db-migration
+    - name: STORAGE_DRIVER
+      description: Set buildah storage driver
+      default: vfs
+    - name: DOCKERFILE_PATH
+      description: Path to Dockerfile to build.
+      default:
+    - name: DOCKERFILE
+      description: Dockerfile to build.
+      default: Dockerfile
+    - name: version
+      description: App version
+      default: latest
+    - name: registry_url
+      description: Docker registry URL
+      default: registry.kube-system.svc.cluster.local:5000
+  workspaces:
+    - name: source
+  steps:
+    - name: build
+      image: quay.io/buildah/stable
+      workingDir: $(workspaces.source.path)/$(params.DOCKERFILE_PATH)
+      script: |
+        buildah build \
+          --storage-driver=vfs \
+          --layers \
+          --file $(params.DOCKERFILE) \
+          --tag $(params.REGISTRY)/$(params.IMAGE):$(params.version) \
+          .
+        
+        buildah push \
+          --tls-verify=false \
+          --log-level=trace \
+          --storage-driver=vfs \
+          --digestfile $(workspaces.source.path)/image-digest \
+          $(params.IMAGE):$(params.version) \
+          $(params.REGISTRY)/$(params.IMAGE):$(params.version)
+
+      volumeMounts:
+        - name: varlibcontainers
+          mountPath: /var/lib/containers
+      securityContext:
+        privileged: true
+        capabilities:
+          # needed by `buildah build`
+          add: [ "SETFCAP" ]
+
+  volumes:
+    - name: varlibcontainers
+      emptyDir: {}

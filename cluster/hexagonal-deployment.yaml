@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: hexagonal-service
-          image: hexagonal-service:latest
-          imagePullPolicy: Never
+          image: 10.244.0.3:5000/hexagonal-service:latest
+          imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: hexagonal-env
@@ -25,8 +25,8 @@ spec:
             - containerPort: 8080
       initContainers:
         - name: db-migration
-          image: db-migration:latest
-          imagePullPolicy: Never
+          image: 10.244.0.3:5000/db-migration:latest
+          imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: flyway-env
